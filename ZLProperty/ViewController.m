@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     
+    
     // 衣服模型，人可以拥有多件衣服，狗也能拥有多件衣服
     NSArray *clothes = @[
                          @{@"name":@"Meters/Bonwe",@"price":@(125)},
