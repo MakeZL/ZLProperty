@@ -11,8 +11,8 @@
 
 @implementation Animal
 
-//- (NSDictionary *) modelWithProperty{
-//    return @{@"clothes":[Clother class]};
-//}
+- (NSDictionary *) modelWithProperty{
+    return @{@"clothes":[Clother class]};
+}
 
 @end

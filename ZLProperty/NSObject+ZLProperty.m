@@ -80,6 +80,7 @@ static id _prevObj = nil;
                 }
             }
         }
+        // 如果是数组的情况下
     }else if ([dict isKindOfClass:[NSArray class]]){
         NSMutableArray *objs = [NSMutableArray array];
         for (NSDictionary *d in dict) {
@@ -98,6 +99,7 @@ static id _prevObj = nil;
     
 }
 
+#pragma mark - 获取真实的属性名
 + (NSString *)getRealNameWithKey:(NSString *)key{
     // 把下划线给去掉
     if([[key substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"_"]){
