@@ -15,5 +15,6 @@
 @property (nonatomic , copy) NSString *nick;
 @property (nonatomic , strong) NSArray *clothes;
 @property (nonatomic , strong) NSArray *animals;
+@property (nonatomic , strong) NSArray *persons;
 
 @end

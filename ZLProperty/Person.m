@@ -13,11 +13,11 @@
 @implementation Person
 
 - (NSDictionary *) modelWithProperty{
-    return @{@"clothes":[Clother class],@"animals":[Animal class]};
+    return @{@"clothes":[Clother class],@"persons":[Person class],@"animals":[Animal class]};
 }
 
-- (NSString *)description{
-    return [NSString stringWithFormat:@"<%p> name : %@ nick :%@ clothes:%@",self, self.name, self.nick, self.clothes];
-}
+//- (NSString *)description{
+//    return [NSString stringWithFormat:@"<%p> name : %@ nick :%@ clothes:%@",self, self.name, self.nick, self.clothes];
+//}
 
 @end

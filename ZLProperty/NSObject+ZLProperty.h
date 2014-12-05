@@ -15,4 +15,9 @@
  */
 + (instancetype) objPropertyWithDict:(NSDictionary *)dict;
 
+/**
+ *  Json转模型
+ */
++ (instancetype) objPropertyWithJsonData:(NSData *)jsonData;
+
 @end
