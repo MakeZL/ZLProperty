@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Animal.h"
 
 @interface Person : NSObject
 
-@property (strong,nonatomic) Person *myPerson;
+@property (strong,nonatomic) Animal *dog;
+
+//@property (strong,nonatomic) Person *myPerson;
 @property (nonatomic , copy) NSString *name;
 @property (nonatomic , copy) NSString *nick;
 @property (nonatomic , strong) NSArray *clothes;

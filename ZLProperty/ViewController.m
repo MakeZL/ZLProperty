@@ -35,6 +35,18 @@
 //        NSLog(@"%@",clother.name);
 //    }
     
+    NSDictionary *animal = @{@"name":@"hashiqi"};
+//
+//    
+//    NSDictionary *dict = @{
+//                           @"dog":animal,
+//                           @"name":@"zl"
+//                           };
+//    
+//    Person *p = [Person objPropertyWithDict:dict];
+//    
+//    NSLog(@"%@",p);
+    
     NSArray *clothes = @[
                          @{@"name":@"Meters/Bonwe",@"price":@(125)},
                          @{@"name":@"nike",@"price":@(255)},
@@ -80,12 +92,13 @@
                                  };
     
     NSDictionary *dict = @{
-                           @"persons" : persons,
                            @"name" : @"zhangleo",
                            @"nick" : @"zl",
                            @"animals": animation,
                            @"clothes" : clothes,
-                           @"myPerson" : personDict
+                           @"persons" : persons,
+                           @"myPerson" : personDict,
+                           @"dog" : animal
                            };
     
     Person *p = [Person objPropertyWithDict:dict];
@@ -97,7 +110,7 @@
         NSLog(@"%@ -- %ld",animal.name , animal.age);
     }
     
-    NSLog(@" ZLPerson : %@",p.myPerson.name);
+//    NSLog(@" ZLPerson : %@",p.myPerson.name);
     
     
     for (Person *xp in p.persons) {
@@ -110,6 +123,8 @@
             NSLog(@"%@ -- %ld",animal.name , animal.age);
         }
     }
+    
+    NSLog(@"%@",[p.dog name]);
 }
 
 @end

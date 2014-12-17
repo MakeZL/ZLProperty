@@ -13,6 +13,6 @@
 
 @property (nonatomic , copy) NSString *name;
 @property (nonatomic , assign) NSInteger age;
-@property (nonatomic , strong) NSArray *clothes;
+//@property (nonatomic , strong) NSArray *clothes;
 
 @end
