@@ -20,4 +20,9 @@
  */
 + (instancetype) objPropertyWithJsonData:(NSData *)jsonData;
 
+/**
+ *  数组转模型
+ */
+- (NSDictionary *)modelWithProperty;
+
 @end

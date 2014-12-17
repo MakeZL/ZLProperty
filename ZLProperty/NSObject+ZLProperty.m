@@ -16,7 +16,6 @@ static id _prevObj = nil;
 @implementation NSObject (ZLProperty)
 
 + (instancetype) objPropertyWithDict:(NSDictionary *)dict{
-    
     id obj = [[self alloc] init];
     return [self objPropertyWithSuperObj:obj currentObj:obj dict:dict];
 }
@@ -56,7 +55,20 @@ static id _prevObj = nil;
                 [currentObj setValue:val forKey:key];
             }
             
-            if ([methodDict allKeys].count > 0) {
+
+            NSString *ivarStr = [NSString stringWithCString:ivar_getTypeEncoding(ivars[i]) encoding:NSUTF8StringEncoding];
+            
+            ivarStr = [ivarStr stringByReplacingOccurrencesOfString:@"@\"" withString:@""];
+            ivarStr = [ivarStr stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            
+            Class keyClass = NSClassFromString(ivarStr);
+            if ([currentObj isKindOfClass:keyClass] && [dict valueForKeyPath:key]) {
+                
+                id crtObj = [[keyClass alloc] init];
+                [currentObj setValue:crtObj forKey:key];
+                [self objPropertyWithSuperObj:superObj currentObj:crtObj dict:dict[key]];
+            }
+            else if ([methodDict allKeys].count > 0) {
                 for (NSString *methodKey in [methodDict allKeys]) {
 
                     if ([key isEqualToString:methodKey]) {
@@ -67,10 +79,15 @@ static id _prevObj = nil;
                         }
                         
                         _prevObj = currentObj;
+                        
+                        
+                        
                         Class otherClass = [methodDict valueForKey:key];
                         id nowObj = [[otherClass alloc] init];
-
-                        if ([dict valueForKeyPath:key]) {
+                        
+                        if ([[dict valueForKeyPath:key] isKindOfClass:[NSArray class]] && currentObj != superObj) {
+                            [self objPropertyWithSuperObj:superObj currentObj:nowObj dict:[dict valueForKeyPath:key]];
+                        }else{
                             [currentObj setValue:nowObj forKey:key];
                             [self objPropertyWithSuperObj:superObj currentObj:nowObj dict:[dict valueForKeyPath:key]];
                         }
@@ -88,7 +105,10 @@ static id _prevObj = nil;
             [objs addObject:newObj];
             [self objPropertyWithSuperObj:superObj currentObj:newObj dict:d];
         }
-        if (![objs containsObject:_prevObj]) {
+        
+        BOOL varFlag = [self getVariableWithClass:[_prevObj class] varName:_keyName];
+        
+        if (![objs containsObject:_prevObj] && varFlag) {
             [_prevObj setValue:objs forKey:_keyName];
         }else{
             [superObj setValue:objs forKey:_keyName];
@@ -97,6 +117,21 @@ static id _prevObj = nil;
     
     return superObj;
     
+}
+
++ (BOOL) getVariableWithClass:(Class) myClass varName:(NSString *)name{    unsigned int outCount, i;
+    Ivar *ivars = class_copyIvarList(myClass, &outCount);
+    for (i = 0; i < outCount; i++) {
+        Ivar property = ivars[i];
+        NSString *keyName = [NSString stringWithCString:ivar_getName(property) encoding:NSUTF8StringEncoding];
+        keyName = [keyName stringByReplacingOccurrencesOfString:@"_" withString:@""];
+        if ([keyName isEqualToString:name]) {
+            return YES;
+        }
+        
+    }
+    
+    return NO;
 }
 
 #pragma mark - 获取真实的属性名
@@ -113,5 +148,9 @@ static id _prevObj = nil;
     NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableLeaves error:nil];
     NSAssert(dict != nil, @"Json可能存在问题");
     return [self objPropertyWithDict:dict];
+}
+
+- (NSDictionary *)modelWithProperty{
+    return nil;
 }
 @end
