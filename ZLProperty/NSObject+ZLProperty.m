@@ -190,4 +190,5 @@ static NSMutableDictionary *_mothodDict = nil;
 - (NSDictionary *)modelWithProperty{
     return nil;
 }
+
 @end
