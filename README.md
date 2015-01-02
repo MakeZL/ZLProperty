@@ -1,5 +1,5 @@
-    This is ZLProperty!
-    ===========================
+This is ZLProperty!
+===========================
     NSArray *clothes = @[
                          @{@"name":@"Meters/Bonwe",@"price":@(125)},
                          @{@"name":@"nike",@"price":@(255)},
